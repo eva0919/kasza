@@ -1,0 +1,39 @@
+$(document).ready(function(){
+  $('.UL').click(function(){
+  	$('.arrow').remove();
+  	$('.ulclicked').removeClass('ulclicked');
+  	$(this).addClass('ulclicked');
+  	$(this).append("<div class='arrow'></div>");
+    divrest();
+  });
+
+  $('.myphoto').click(function(){
+  	
+    $('#middlepage').append("<div id='container'></div>");
+    for(var i=1;i<3;i++){
+      var te = ".item "+i
+      var g = ""+i
+      var g2= "."+i
+      var g3= "."+i+" > .photoset"
+      var img = "<img src='/assets/1001/"+i+".png' alt='Icon'  width='280px' height='200px'/>"
+      $("#container").append("<div class='item' ></div>");
+      $("#container .item:last-child").addClass(g);
+      $(g2).append("<div class='itemtitle'><p>照相</p></div><div class='photoset'></div><div class='itemcontent'><p>那些年，我們一起照得相</p></div>");
+      $(g3).append(img);
+    }
+  });
+ $('.fb_logout').hide();
+ $('.fb_login').live('click',function(){
+    $('.fb_logout').fadeToggle("slow", "linear");
+ });
+
+}
+);
+
+
+
+
+function divrest()
+{
+  $('#middlepage').html("");
+}

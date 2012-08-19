@@ -1,0 +1,4 @@
+development:
+    app_id: '283062638467889'
+    secret: '5523e8034809aecf0a4085351754413b'
+    callback_host: 'localhost:3000'

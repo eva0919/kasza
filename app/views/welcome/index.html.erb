@@ -1,0 +1,30 @@
+<style type="text/css">
+body {
+	overflow-x: hidden;
+}
+
+#index_content {	
+	margin-top: 200px;
+}
+
+#login {
+	position: relative;
+	left:40%;
+}
+#logo {
+	position: relative;
+	left:40%;
+}
+</style> 
+
+<div id='index_content'>
+	<div id='index_logo'>
+	<%= image_tag("logo1.png" ,:id=>'logo')%>
+	</div>
+	<div id='index_login'>
+		<%= link_to image_tag("fb-login-button.png" ,:id=>'login'), login_path %>
+	</div>
+
+
+
+</div>
