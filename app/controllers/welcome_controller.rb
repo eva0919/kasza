@@ -19,7 +19,7 @@ class WelcomeController < ApplicationController
 
   
   def login
-    redirect_to '/main'
+    redirect_to '/'
   end
 
   def logout
