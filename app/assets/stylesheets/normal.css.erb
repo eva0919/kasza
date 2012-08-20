@@ -13,6 +13,7 @@ body {
 	left: 0;
 	border-right:1px solid;
 	border-color: #C4B9BE;
+	z-index: 3;	
 }
 .leftcontent {
 	position: relative;
@@ -149,11 +150,15 @@ body {
 	text-align: center;
 	background-color: #7AB5DB;
 	height: 40px;
-	width: 200px;
+	width: 205px;
 	bottom:0;
 	line-height: 0;
 	margin-bottom: 50px;
 	cursor: pointer;
+	border-right:1px solid;
+	border-color: #C4B9BE;
+	z-index: 5;
+
 }
 
 .fb_login p {
@@ -187,4 +192,46 @@ body {
 .fb_logout p span {
 	position: relative;
 	bottom: 5px;
+}
+
+.blackmosk {
+	position: fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index: 10;
+	opacity: 0.9;
+}
+
+.displayphoto {
+	position: absolute;
+	top:50px;
+	margin-left: 20%;
+	background-color: white;
+	z-index: 100;
+	padding: 20px;
+	border-radius:4px;
+}
+.arrowleft {
+	position: absolute;
+	top:150px;
+	left:-80px;
+	opacity: 0.2;
+}
+.arrowleft:hover {
+	opacity: 0.8;
+	cursor: pointer;
+}
+.arrowright {
+	position: absolute;
+	top:150px;
+	left: 500px;
+	margin-left: 20%;
+	opacity: 0.2;
+}
+.arrowright:hover {
+	opacity: 0.8;
+	cursor: pointer;
 }
