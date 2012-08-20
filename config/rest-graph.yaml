@@ -4,6 +4,6 @@ development:
     callback_host: 'localhost:3000'
 
 production:
-	app_id: '330689460349033'
+    app_id: '330689460349033'
     secret: 'de38de5531e021518d36f76c30faec77'
     callback_host: 'http://pictest.herokuapp.com/'
