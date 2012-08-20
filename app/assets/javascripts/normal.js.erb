@@ -26,33 +26,7 @@ $(document).ready(function(){
  $('.fb_login').live('click',function(){
     $('.fb_logout').fadeToggle("slow", "linear");
  });//fb_logout 顯示 的動作
- $('.item').live('click',function(){
-    var t = $(this).children('.itemtitle').text();
-    var p = $(this).children('.photoset').children('img').attr('src');
-    var c = $(this).children('.itemcontent').text();
-    console.log(t);
-    console.log(p);
-    console.log(c);
-    var cc =c+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>";
-    var img ="<img src='"+p+"' alt='Icon'  width='520px' height='390px'/>"
-    $('body').append('<div class="blackmosk"></div>');
-    $('body').append('<div class="displayphoto"></div>');
-    $('.displayphoto').append('<div class="dpage"></div>')
-    $('.dpage').append('<div class="dtitle"></div>');
-    $('.dpage').append('<div class="dphoto"></div>');
-    $('.dpage').append('<div class="dcontent"></div>');
-    $('.dtitle').text(t);
-    $('.dphoto').html(img);
-    $('.displayphoto').append('<div class="arrowleft"><img src="/assets/displayarrowleft.png" /></div>');
-    $('.displayphoto').append('<div class="arrowright"><img src="/assets/displayarrowright.png" /></div>');
-    $('.dcontent').html(cc);
-    $('body').css('overflow-y','hidden');
- });//我的相簿 點選的事件
- $('.blackmosk').live('click',function(){
-    $('.blackmosk').remove();
-    $('.displayphoto').remove();
-    $('body').css('overflow-y','auto');
- });//黑幕 點選會發生的事件
+ 
 }
 );
 
