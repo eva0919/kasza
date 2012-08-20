@@ -10,11 +10,11 @@ class WelcomeController < ApplicationController
 	end
 
 	def main
-		@access_token = rest_graph.access_token
+		#@access_token = rest_graph.access_token
 
-	    if @access_token
-	      @me = rest_graph.get('/me')
-	    end
+	   # if @access_token
+	    #  @me = rest_graph.get('/me')
+	    #end
 	end
 
   
