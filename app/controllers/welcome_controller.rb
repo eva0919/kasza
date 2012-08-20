@@ -2,8 +2,8 @@ require 'net/http'
 class WelcomeController < ApplicationController
 	layout "application", :except => [:index]
   include RestGraph::RailsUtil
-  before_filter :login_facebook, :only => [:login]
-  before_filter :load_facebook, :except => [:login]
+  #before_filter :login_facebook, :only => [:login]
+  #before_filter :load_facebook, :except => [:login]
 	def index
     	
 		render :layout => false
