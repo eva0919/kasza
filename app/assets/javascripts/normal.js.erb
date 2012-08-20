@@ -33,17 +33,19 @@ $(document).ready(function(){
     console.log(t);
     console.log(p);
     console.log(c);
+    var cc =c+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>";
     var img ="<img src='"+p+"' alt='Icon'  width='520px' height='390px'/>"
     $('body').append('<div class="blackmosk"></div>');
     $('body').append('<div class="displayphoto"></div>');
-    $('.displayphoto').append('<div class="dtitle"></div>');
-    $('.displayphoto').append('<div class="dphoto"></div>');
-    $('.displayphoto').append('<div class="dcontent"></div>');
+    $('.displayphoto').append('<div class="dpage"></div>')
+    $('.dpage').append('<div class="dtitle"></div>');
+    $('.dpage').append('<div class="dphoto"></div>');
+    $('.dpage').append('<div class="dcontent"></div>');
     $('.dtitle').text(t);
     $('.dphoto').html(img);
-    $('.dphoto').append('<div class="arrowleft"><img src="/assets/displayarrowleft.png" /></div>');
-    $('.dphoto').append('<div class="arrowright"><img src="/assets/displayarrowright.png" /></div>');
-    $('.dcontent').text(c);
+    $('.displayphoto').append('<div class="arrowleft"><img src="/assets/displayarrowleft.png" /></div>');
+    $('.displayphoto').append('<div class="arrowright"><img src="/assets/displayarrowright.png" /></div>');
+    $('.dcontent').html(cc);
     $('body').css('overflow-y','hidden');
  });//我的相簿 點選的事件
  $('.blackmosk').live('click',function(){
