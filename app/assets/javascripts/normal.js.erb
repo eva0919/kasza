@@ -23,6 +23,7 @@ $(document).ready(function(){
       
     }
     $("#container").append("<script type='text/javascript'>$('#container').masonry({itemSelector: '.item',columnWidth: 10,isAnimated: true});</script>");
+    //動態綁masonry的方法 插入script 在事件發身之後
   });
  $('.fb_logout').hide();
  $('.fb_login').live('click',function(){
@@ -41,9 +42,11 @@ $(document).ready(function(){
 
 function cancel_fblogout()
 {
-  $('.fb_logout').hide();
+  $('.fb_logout').fadeOut("slow");
 }
+//函式 用來隱藏登出的button
 function divrest()
 {
   $('#middlepage').html("");
 }
+//函式 用來清空中間頁面的html
