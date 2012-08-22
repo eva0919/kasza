@@ -1,0 +1,31 @@
+#progressbar{
+top:0;
+left:0;
+position:fixed; /* 固定在浏览器窗口的左上角 */
+border:none;
+z-index:4;
+}
+#progressbar span{
+position:absolute; /* 绝对定位 */
+height:1.5em;
+opacity:0.6;
+}
+#progressdone{
+background:#888; /* 底色 */
+width:100px; /* 进度条宽度 */
+z-index:5;
+}
+#progressing{
+background:#454545;  /* 进度的颜色 */
+width:6px;  /* 初始宽度 6 */
+z-index:5;
+}
+#progresstip{
+font-size:12px;
+font-weight:lighter;
+text-align:center;
+vertical-align:middle;
+z-index:7;
+width:100px;
+color:#FFF;
+}
