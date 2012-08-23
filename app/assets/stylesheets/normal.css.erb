@@ -1,5 +1,6 @@
 body {
-	height:100%;
+	margin: 0; 
+	height: 100%;
 	background-image: url('<%= asset_path("bg3.png")%>');
 	overflow-x: hidden;
 }
@@ -93,18 +94,29 @@ body {
 
 
 }
-
-#middlepage {
+#backmask {
 	background-color: white;
-	width:80%;
-	height: 800px;
-	position: relative;
-	margin-left: 200px;
-	margin-right:450px;
+	position: absolute;
+	left: 210px;
+	right:10px;
+	bottom:10px;
+	top: 5px;
 	border:1px solid;
 	border-color: #C4B9BE;
+	min-height: 350px;
+	min-width: 320px;
 }
+#middlepage {
 
+	right:10px;
+	position: relative;
+	margin-top: 5px;
+	margin-left: 230px;
+	/* margin-right:450px; */
+}
+#container {
+	bottom:5px;
+}
 .item {
   width: 300px;
   margin: 10px;
