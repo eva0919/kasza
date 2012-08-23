@@ -18,6 +18,9 @@
  
     var winHeight=0;
  
+    var winWidth2=0;
+ 
+    var winHeight2=0;
     function findDimensions() { //函数：获取尺寸
  
         //获取窗口宽度
@@ -28,9 +31,9 @@
  
         }
  
-        else if ((document.body) && (document.body.clientWidth)) {
+        if ((document.body) && (document.body.clientWidth)) {
  
-            winWidth = document.body.clientWidth;
+            winWidth2 = document.body.clientWidth;
  
         }
  
@@ -42,9 +45,9 @@
  
         }
  
-        else if ((document.body) && (document.body.clientHeight)) {
+        if ((document.body) && (document.body.clientHeight)) {
  
-            winHeight = document.body.clientHeight;
+            winHeight2 = document.body.clientHeight;
  
         }
  
@@ -62,13 +65,17 @@
  
         console.log(winHeight);
         console.log(winWidth);
-        
+        console.log(winHeight2);
+        console.log(winWidth2);
         //设置div的具体宽度=窗口的宽度的%
+        
+        if(winHeight<winHeight2){winHeight=winHeight2; }
+        if(winWidth<winWidth2){winWidth=winWidth2; }
+        var targetHeight = winHeight+"px";
+        if (document.getElementById("middlepage")) {
  
-        if (document.getElementById("backmask")) {
- 
-            document.getElementById("backmask").style.height = winHeight*0.98 + "px";
-            document.getElementById("backmask").style.width = winWidth*0.82 + "px";
+            $("#middlepage").css('min-height',targetHeight);
+            
         }
  
     }
