@@ -1,3 +1,4 @@
+a="123"
 git add .
-git commit -m date
+git commit -m $a
 git push heroku master
