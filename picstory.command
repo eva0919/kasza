@@ -1,4 +1,4 @@
 a="123"
 git add .
-git commit -m $a
+git commit -m $1
 git push heroku master
