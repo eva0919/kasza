@@ -5,13 +5,23 @@ class WelcomeController < ApplicationController
   before_filter :login_facebook, :only => [:login]
   before_filter :load_facebook, :except => [:login]
 	def index
-    	
-		render :layout => false
+    if cookies[:KaSzakey] && cookies[:KaSzakey]!=""
+        redirect_to '/main'
+    else
+        render :layout => false
+    end	
+		
 	end
 
-	def main
-		@access_token = rest_graph.access_token
-
+	def main 
+    if cookies[:KaSzakey] && cookies[:KaSzakey]!=""
+       rest_graph.access_token = cookies[:KaSzakey] 
+       @access_token = rest_graph.access_token
+    else 
+      @access_token = rest_graph.access_token
+      cookies[:KaSzakey] = { :value => rest_graph.access_token,:expires => 1.day.from_now}
+    end  
+      cookies[:KaSzakey] = { :value => rest_graph.access_token,:expires => 1.day.from_now}
 	    if @access_token
 	      @me = rest_graph.get('/me')
 	    end
@@ -24,6 +34,7 @@ class WelcomeController < ApplicationController
 
   def logout
     reset_session
+    cookies.delete(:KaSzakey)
     redirect_to '/'
   end
 private
