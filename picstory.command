@@ -1,3 +1,4 @@
+date
 a="123"
 git add .
 git commit -m $1
