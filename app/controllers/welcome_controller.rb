@@ -18,8 +18,7 @@ class WelcomeController < ApplicationController
        rest_graph.access_token = cookies[:KaSzakey] 
        @access_token = rest_graph.access_token
     else 
-      @access_token = rest_graph.access_token
-      cookies[:KaSzakey] = { :value => rest_graph.access_token,:expires => 1.month.from_now}
+      redirect_to '/'
     end  
       cookies[:KaSzakey] = { :value => rest_graph.access_token,:expires => 1.month.from_now}
 	    if @access_token
