@@ -15,7 +15,7 @@
 
 <% @pictures.each do |picture| %>
   <tr>
-    <td><%= picture.image %></td>
+    <td><%= image_tag picture.image.url(:thumb) %></td>
     <td><%= picture.kind %></td>
     <td><%= picture.content %></td>
     <td><%= picture.latitude %></td>

@@ -7,7 +7,7 @@ gem 'rails', '3.2.3'
 gem 'rest-graph'
 gem 'rest-client'
 gem 'json'
-
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"	
 
 
 group :production do

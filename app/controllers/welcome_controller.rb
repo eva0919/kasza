@@ -4,6 +4,7 @@ class WelcomeController < ApplicationController
   include RestGraph::RailsUtil
   before_filter :login_facebook, :only => [:login]
   before_filter :load_facebook, :except => [:login]
+
 	def index
     if cookies[:KaSzakey] && cookies[:KaSzakey]!=""
         redirect_to '/main'
@@ -26,8 +27,48 @@ class WelcomeController < ApplicationController
 	    end
 	end
 
+  def getphoto
+      @data = Array.new()
+      
+      @key = Account.where(:fb_id => params[:id]).first
+      @pictures = @key.pictures
+
+      @pictures.each do |picture|
+        @temp = Hash.new {}
+        @temp[:image] =  picture.image.url(:thumb)
+        @temp[:content] = picture.content
+        @data << @temp
+      end
+      render json: @data
+  end
+
+  def getphoto_phone
+      @data = Array.new()
+      
+      @key = Account.where(:fb_id => params[:id]).first
+      @pictures = @key.pictures
+
+      @pictures.each do |picture|
+        @temp = Hash.new {}
+        @temp[:image] =  picture.image.url(:thumb)
+        @temp[:content] = picture.content
+        @data << @temp
+      end
+      render json: @data
+  end
+
+
+
+
   
   def login
+    @me = rest_graph.get('/me')
+    if Account.where(:fb_id => @me['id']).count > 0
+    else
+    @account = Account.new(:fb_id => @me['id'])
+    @account.save
+    end
+    cookies[:KaSzakey] = { :value => rest_graph.access_token,:expires => 1.month.from_now}
     redirect_to '/main'
   end
 
@@ -48,3 +89,4 @@ private
                      :write_session          => true)
   end
 end
+

@@ -10,6 +10,19 @@ $(document).ready(function(){
   $('.myphoto').click(function(){
   	
     $('#middlepage').append("<div id='container'></div>");
+    var search = $(".fb_login").attr("em");
+    $.ajax({
+      url: "/getphoto",
+      type: "POST",
+      data:{ id: search},
+      success: function(data) {
+        alert('Load was performed.');
+        console.log(data);
+      },
+      error: function() {
+        alert('Failed.');
+      }
+    });
     for(var i=1;i<3;i++){
       var te = ".item "+i
       var g = ""+i
@@ -25,17 +38,20 @@ $(document).ready(function(){
     $("#container").append("<script type='text/javascript'>$('#container').masonry({itemSelector: '.item',columnWidth: 10,isAnimated: true});</script>");
     //動態綁masonry的方法 插入script 在事件發身之後
   });
- $('.fb_logout').hide();
- $('.fb_login').live('click',function(){
-    $('.fb_logout').fadeToggle("slow", "linear");
- });//fb_logout 顯示 的動作
- $('#middlepage').click(function(){
-  cancel_fblogout();
- });
- $('.leftpage').click(function(){
-  cancel_fblogout();
- });
-}
+  $('.upload').click(function(){
+   $('#middlepage').load('/pictures/new #pic_upload');
+  });
+  $('.fb_logout').hide();
+  $('.fb_login').live('click',function(){
+     $('.fb_logout').fadeToggle("slow", "linear");
+  });//fb_logout 顯示 的動作
+  $('#middlepage').click(function(){
+   cancel_fblogout();
+  });
+  $('.leftpage').click(function(){
+   cancel_fblogout();
+  });
+ }
 );
 
 

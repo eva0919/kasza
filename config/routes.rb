@@ -5,6 +5,8 @@ Picstory::Application.routes.draw do
   get '/main' => 'welcome#main'
   get '/login' => 'welcome#login'
   get '/logout' => 'welcome#logout'
+  post '/getphoto' => 'welcome#getphoto' 
+  get '/getphoto_phone/:id'=>'welcome#getphoto_phone'
   match ':controller(/:action(/:id))(.:format)'
   root :to => 'welcome#index'
 
