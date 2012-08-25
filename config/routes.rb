@@ -1,4 +1,6 @@
 Picstory::Application.routes.draw do
+  resources :pictures
+
   get '/'  => 'welcome#index'
   get '/main' => 'welcome#main'
   get '/login' => 'welcome#login'
