@@ -46,7 +46,8 @@ class PicturesController < ApplicationController
   def create
     @picture = Picture.new(params[:picture])
     @picture.save
-    @me = rest_graph.get('/me')
+    rest_graph.access_token = cookies[:KaSzakey]
+    @me = rest_graph.get('me')
     @a = Account.where(:fb_id => @me['id']).first
     @kasza = Kasza.new(:account_id => @a.id,:picture_id => @picture.id)
     @kasza.save
@@ -68,7 +69,7 @@ class PicturesController < ApplicationController
 
     respond_to do |format|
       if @picture.update_attributes(params[:picture])
-        format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
+        format.html { redirect_to '/main', notice: 'upload' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -89,6 +90,27 @@ class PicturesController < ApplicationController
     end
   end
 
+  # get /pictures/search/1
+  # 尋找id=1 相同tag的照片
+  def search
+    @picture = Picture.find(params[:id])
+    @tag = @picture
+    @result = Picture.where(:tag=>@tag[:tag])
+    @data = Array.new()
+    @data << @result.count  
+      
+
+      @result.each do |picture|
+        @temp = Hash.new {}
+        @temp[:image] =  picture.image.url(:thumb)
+        @temp[:content] = picture.content
+        @temp[:id] = picture.id
+        @data << @temp
+      end
+      render json: @data
+  end
+
+  
 
 
 ################################################

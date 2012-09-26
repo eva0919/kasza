@@ -8,7 +8,9 @@ gem 'rest-graph'
 gem 'rest-client'
 gem 'json'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"	
+gem 'execjs'
 
+gem 'therubyracer'
 
 group :production do
   gem 'pg'

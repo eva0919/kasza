@@ -1,9 +1,59 @@
 $(document).ready(function(){
 	$('.item').live('click',function(){
-    var t = $(this).children('.itemtitle').text();
-    var p = $(this).children('.photoset').children('img').attr('src');
-    var c = $(this).children('.itemcontent').text();
+        showdetail($(this));
+    });//我的相簿 點選的事件
+ $('.blackmosk').live('click',function(){
+    $('.blackmosk').remove();
+    $('.displayphoto').remove();
+    //$('body').css('overflow-y','auto');
+ });//黑幕 點選會發生的事件
+ $('.photoedit').live('click',function(){
+    var nb = $('.dphoto').attr('nb');
+    var load = "/pictures/"+nb+"/edit #editload";
+    var load2 = "/pictures/3/edit #editload";
+    $('.dpage').load(load);
+    $('.arrowright').hide();
+    $('.arrowleft').hide();
+    //$('body').css('overflow-y','auto');
+ });
+ $('.photosearch').live('click',function(){
+    var nb = $('.dphoto').attr('nb');
+    var url ="/pictures/search/"+nb;
+    //document.location.href=url;
+    /*($.ajax({
+        url:url,
+        type:"GET",
+        success: function(data) {
+        //alert('Load was performed.');
+        document.location.href="";
+        console.log(data);
+        divrest();
+        $('.blackmosk').trigger('click');
+        $('#middlepage').append("<div id='container'></div>");
+        createphoto(data);
+      },
+      error: function() {
+        alert('Failed.');
+      }
+    });*/
+    post_to_url('/welcome/search',nb);
+ });
+
+});
+
+function callback() {
+			
+		};
+
+//點擊照片show出照片的detail的function
+function showdetail(choose){
+    var t = choose.children('.itemtitle').text();
+    var p = choose.children('.photoset').children('img').attr('src');
+    var c = choose.children('.itemcontent').text();
+    var nb = choose.children('.photoset').attr('nb');
     var options = {};
+    var arrowright_f = "showdetailchangetoright("+choose+")";
+
     console.log(t);
     console.log(p);
     console.log(c);
@@ -14,26 +64,76 @@ $(document).ready(function(){
     $('.displayphoto').append('<div class="dpage"></div>')
     $('.dpage').append('<div class="dtitle"></div>');
     $('.dpage').append('<div class="dphoto"></div>');
+    $('.dpage').append('<div class="photoedit"><p>編輯</p></div>');
+    $('.dpage').append('<div class="photosearch"><p>尋找同好</p></div>');
+    $('.dpage').append('<div class="photoblackbottom"></div>');
     $('.dpage').append('<div class="dcontent"></div>');
     $('.dtitle').text(t);
     $('.dphoto').html(img);
+    $('.dphoto').attr('nb',nb);
     $('.displayphoto').append('<div class="arrowleft"><img src="/assets/displayarrowleft.png" /></div>');
     $('.displayphoto').append('<div class="arrowright"><img src="/assets/displayarrowright.png" /></div>');
-    $('.dcontent').html(cc);
-    $('body').css('overflow-y','hidden');
+    $('.dcontent').html(c);
+    //展示個別照片時 左右鍵頭的功能
+    $('.arrowright').click(function(){
+        if(choose.next('.item').length>0){
+        $('.blackmosk').trigger('click');
+        showdetail(choose.next());
+        }
+        else
+        {
+            alert("這是最後一張照片");
+        }
+    });
+    $('.arrowleft').click(function(){
+        if(choose.prev('.item').length>0){
+        $('.blackmosk').trigger('click');
+        showdetail(choose.prev());
+        }
+        else
+        {
+            alert("這是第一張照片");
+        }
+    });
+
+    //$('body').css('overflow-y','hidden');
     $('.displayphoto').hide();
     $('.displayphoto').fadeIn('slow');
- });//我的相簿 點選的事件
- $('.blackmosk').live('click',function(){
-    $('.blackmosk').remove();
-    $('.displayphoto').remove();
-    $('body').css('overflow-y','auto');
- });//黑幕 點選會發生的事件
+}//end function showdetail
+//用js 做出post form to url
+function post_to_url(path, data, method) {
+    method = method || "post"; // Set method to post by default, if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "id");
+        hiddenField.setAttribute("value", data);
+
+        form.appendChild(hiddenField);
+    
+
+    document.body.appendChild(form);    // Not entirely sure if this is necessary
+    form.submit();
+}
 
 
 
-});
 
-function callback() {
-			
-		};
+/* 測試上傳時出現預覽照片（失敗中）
+function yulan(filepicker) 
+{ 
+var tempObj=document.createElement("img");
+tempObj.style.border=0;
+tempObj.style.displaly="none";
+tempObj.src = filepicker.value;
+$("#preview").append(tempObj);
+tempObj.style.display="block";
+
+} */

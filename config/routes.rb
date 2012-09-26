@@ -1,12 +1,14 @@
 Picstory::Application.routes.draw do
   resources :pictures
-
+  post '/welcome/search' => 'welcome#search'
+  post '/welcome/searchshow' => 'welcome#searchshow'
   get '/'  => 'welcome#index'
   get '/main' => 'welcome#main'
   get '/login' => 'welcome#login'
   get '/logout' => 'welcome#logout'
   post '/getphoto' => 'welcome#getphoto' 
   get '/getphoto_phone/:id'=>'welcome#getphoto_phone'
+  post '/postdata' => 'welcome#postdata' 
   match ':controller(/:action(/:id))(.:format)'
   root :to => 'welcome#index'
 

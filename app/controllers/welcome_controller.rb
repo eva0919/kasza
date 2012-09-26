@@ -25,6 +25,9 @@ class WelcomeController < ApplicationController
 	    if @access_token
 	      @me = rest_graph.get('/me')
 	    end
+    if params[:event]
+       @event =  params[:event]
+    end
 	end
 
   def getphoto
@@ -32,11 +35,12 @@ class WelcomeController < ApplicationController
       
       @key = Account.where(:fb_id => params[:id]).first
       @pictures = @key.pictures
-
+      @data << @pictures.count
       @pictures.each do |picture|
         @temp = Hash.new {}
         @temp[:image] =  picture.image.url(:thumb)
         @temp[:content] = picture.content
+        @temp[:id] = picture.id
         @data << @temp
       end
       render json: @data
@@ -52,14 +56,19 @@ class WelcomeController < ApplicationController
         @temp = Hash.new {}
         @temp[:image] =  picture.image.url(:thumb)
         @temp[:content] = picture.content
+        @temp[:id] = picture.id
         @data << @temp
       end
       render json: @data
   end
 
-
-
-
+  def postdata
+    @picture=Picture.new(:image=>params[:image],:content=>params[:fbid],:latitude=>params[:latitude],:tag=>params[:tag],:longitude=>params[:longitude],:kind=>params[:kind])
+    @picture.save
+    @a = Account.where(:fb_id => params[:fbid]).first
+    @kasza = Kasza.new(:account_id => @a.id,:picture_id => @picture.id)
+    @kasza.save
+  end
   
   def login
     @me = rest_graph.get('/me')
@@ -76,6 +85,29 @@ class WelcomeController < ApplicationController
     reset_session
     cookies.delete(:KaSzakey)
     redirect_to '/'
+  end
+
+  def search
+   @data = params[:id]
+   render :layout => "searchpagelayout"
+  end
+
+  def searchshow
+    @picture = Picture.find(params[:id])
+    @tag = @picture
+    @result = Picture.where(:tag=>@tag[:tag])
+    @data = Array.new()
+    @data << @result.count  
+      
+
+    @result.each do |picture|
+        @temp = Hash.new {}
+        @temp[:image] =  picture.image.url(:thumb)
+        @temp[:content] = picture.content
+        @temp[:id] = picture.id
+        @data << @temp
+    end
+    render json:  @data
   end
 private
   def load_facebook

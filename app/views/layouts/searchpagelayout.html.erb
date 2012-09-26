@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ka.Sza</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+
+  <%= csrf_meta_tags %>
+ 
+</head>
+<body >
+
+<%= yield %>
+
+<%= javascript_include_tag "application" %>
+<script type='text/javascript'>
+    var search = $("#data").attr("em");
+    $.ajax({
+        url:"/welcome/searchshow",
+        type:"POST",
+        data: { id: search},
+        success: function(data) {
+        //alert('Load was performed.');
+        console.log(data);
+        $('body').append("<div id='container'></div>");
+        createphoto(data);
+      },
+      error: function() {
+        alert('Failed.');
+      }
+    });
+    
+</script>
+
+<style type="text/css">
+    .item {
+        background-color: white;
+    }
+    #container {
+        margin-top: 30px;
+    }
+</style>
+</body>
+</html>

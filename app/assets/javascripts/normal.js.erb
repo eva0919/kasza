@@ -16,14 +16,14 @@ $(document).ready(function(){
       type: "POST",
       data:{ id: search},
       success: function(data) {
-        alert('Load was performed.');
-        console.log(data);
+        //alert('Load was performed.');
+        createphoto(data);
       },
       error: function() {
         alert('Failed.');
       }
     });
-    for(var i=1;i<3;i++){
+   /* for(var i=1;i<3;i++){
       var te = ".item "+i
       var g = ""+i
       var g2= "."+i
@@ -36,7 +36,7 @@ $(document).ready(function(){
       
     }
     $("#container").append("<script type='text/javascript'>$('#container').masonry({itemSelector: '.item',columnWidth: 10,isAnimated: true});</script>");
-    //動態綁masonry的方法 插入script 在事件發身之後
+    //動態綁masonry的方法 插入script 在事件發身之後*/
   });
   $('.upload').click(function(){
    $('#middlepage').load('/pictures/new #pic_upload');
@@ -45,12 +45,22 @@ $(document).ready(function(){
   $('.fb_login').live('click',function(){
      $('.fb_logout').fadeToggle("slow", "linear");
   });//fb_logout 顯示 的動作
-  $('#middlepage').click(function(){
+  $('.fb_login').blur(function(){
+   cancel_fblogout();
+  });
+  /*$('#middlepage').click(function(){
    cancel_fblogout();
   });
   $('.leftpage').click(function(){
    cancel_fblogout();
   });
+  $('html').click(function(){
+   cancel_fblogout();
+  });*/
+  if ($('#event').text() == "upload")
+  {
+    $('.myphoto').trigger('click');
+  }
  }
 );
 
@@ -66,3 +76,29 @@ function divrest()
   $('#middlepage').html("");
 }
 //函式 用來清空中間頁面的html
+function createphoto(data)
+{
+  console.log(data[0]);
+  for(var i=1;i<=data[0];i++){
+      var te = ".item "+i;
+      var g = ""+i;
+      var g2= "."+i;
+      var g3= "."+i+" > .photoset";
+      var c = "<div class='itemcontent'><p>"+data[i].content+"</p></div>";
+      var nb = ""+data[i].id;
+      var img = "<img src='"+data[i].image+"' alt='Icon'  width='280px' height='200px'/>";
+      $("#container").append("<div class='item' ></div>");
+      $("#container .item:last-child").addClass(g);
+      $(g2).append("<div class='itemtitle'><p>照相</p></div><div class='photoset'></div>");
+      $(g2).append(c);
+      $(g3).append(img);
+      $(g3).attr('nb',nb);
+
+      
+    }
+    $("#container").append("<script type='text/javascript'>$('#container').masonry({itemSelector: '.item',columnWidth: 10,isAnimated: true});</script>");
+    //動態綁masonry的方法 插入script 在事件發身之後
+}
+$("#logo2").live("click",function(){
+        document.location.href="/";
+    });
