@@ -10,7 +10,7 @@ gem 'json'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"	
 gem 'execjs'
 
-gem 'therubyracer'
+#gem 'therubyracer'
 
 group :production do
   gem 'pg'

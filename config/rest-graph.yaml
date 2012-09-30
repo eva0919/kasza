@@ -1,12 +1,9 @@
-#development:
-#    app_id: '360120870730290'
-#    secret: 'd28886e5d44a40afa88ee1959774fa31'
-#    callback_host: 'localhost:3000/'
-production:
-    app_id: '330689460349033'
-    secret: 'de38de5531e021518d36f76c30faec77'
-    callback_host: 'http://ec2-54-248-27-109.ap-northeast-1.compute.amazonaws.com:3000'
 development:
     app_id: '283062638467889'
     secret: '5523e8034809aecf0a4085351754413b'
-    callback_host: 'http://ec2-54-248-27-109.ap-northeast-1.compute.amazonaws.com:3000'
+    callback_host: 'http://140.112.107.62:3000'
+
+production:
+    app_id: '330689460349033'
+    secret: 'de38de5531e021518d36f76c30faec77'
+    callback_host: 'pictest.herokuapp.com'
