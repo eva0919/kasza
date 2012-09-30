@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Picture:</b>
+  <%= @command.picture_id %>
+</p>
+
+<p>
+  <b>Fb:</b>
+  <%= @command.fb_id %>
+</p>
+
+<p>
+  <b>Fb name:</b>
+  <%= @command.fb_name %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @command.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_command_path(@command) %> |
+<%= link_to 'Back', commands_path %>

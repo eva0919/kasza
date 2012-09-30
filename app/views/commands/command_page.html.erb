@@ -1,0 +1,9 @@
+<div id='command_page'>
+<% @commands.each do |command| %>
+<div class='command_list'>
+<p class='command_content'><span class='command_name'><%= command.fb_name %>&nbsp;：&nbsp;</span><%= command.content %></p>
+
+</div>
+<%end%>
+
+</div>

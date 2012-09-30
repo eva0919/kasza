@@ -54,9 +54,7 @@ function showdetail(choose){
     var options = {};
     var arrowright_f = "showdetailchangetoright("+choose+")";
 
-    console.log(t);
-    console.log(p);
-    console.log(c);
+
     var cc =c+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>";
     var img ="<img src='"+p+"' alt='Icon'  width='520px' height='390px'/>"
     $('body').append('<div class="blackmosk"></div>');
@@ -68,13 +66,17 @@ function showdetail(choose){
     $('.dpage').append('<div class="photosearch"><p>尋找同好</p></div>');
     $('.dpage').append('<div class="photoblackbottom"></div>');
     $('.dpage').append('<div class="dcontent"></div>');
+    $('.dpage').append('<div class="command"></div>');
+    $('.dpage').append('<div class="command_post"></div>');
     $('.dtitle').text(t);
     $('.dphoto').html(img);
     $('.dphoto').attr('nb',nb);
     $('.displayphoto').append('<div class="arrowleft"><img src="/assets/displayarrowleft.png" /></div>');
     $('.displayphoto').append('<div class="arrowright"><img src="/assets/displayarrowright.png" /></div>');
     $('.dcontent').html(c);
+    $('.command').load("/command_page/"+nb);
     //展示個別照片時 左右鍵頭的功能
+
     $('.arrowright').click(function(){
         if(choose.next('.item').length>0){
         $('.blackmosk').trigger('click');
@@ -94,6 +96,35 @@ function showdetail(choose){
         {
             alert("這是第一張照片");
         }
+    });
+    //留言功能
+    var command = "<span>留言：</span><input type='text' name='fb_id' id='command_input' size=80>";
+    $('.command_post').append(command);
+
+    $("input[type=text]").keydown(function(event){
+      if(event.keyCode == 13){
+        var content = $(this).val();
+        var id = $(".fb_login").attr("em");
+        var name = $(".fb_login span").text();
+        var picture_id = nb;
+        //ajax post to /command_post 參數有picture_id fb_id fb_name content
+        //去建立資料庫
+        $.ajax({
+                  url: "/command_post",
+                  type: "POST",
+                  data:{ picture_id: picture_id , fb_id: id , fb_name: name , content: content},
+                  success: function(data) {
+                    //即時更新留言資訊
+                    //load 網址 get /command_page/:id
+                    var page = "/command_page/"+picture_id;
+                    $('.command').load(page);
+                    $(this).val("");
+                  },
+                  error: function() {
+                    
+                  }
+                });//end ajax
+      }
     });
 
     //$('body').css('overflow-y','hidden');
