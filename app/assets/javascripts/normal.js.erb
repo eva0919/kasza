@@ -1,10 +1,13 @@
-$(document).ready(function(){
+
+
   $('.UL').click(function(){
+    divrest();
+    console.log('divrest');
   	$('.arrow').remove();
   	$('.ulclicked').removeClass('ulclicked');
   	$(this).addClass('ulclicked');
   	$(this).append("<div class='arrow'></div>");
-    divrest();
+    
   });
 
   $('.myphoto').click(function(){
@@ -61,8 +64,7 @@ $(document).ready(function(){
   {
     $('.myphoto').trigger('click');
   }
- }
-);
+
 
 
 
@@ -78,7 +80,7 @@ function divrest()
 //函式 用來清空中間頁面的html
 function createphoto(data)
 {
-  console.log(data[0]);
+  
   for(var i=1;i<=data[0];i++){
       var te = ".item "+i;
       var g = ""+i;
@@ -98,7 +100,8 @@ function createphoto(data)
     }
     $("#container").append("<script type='text/javascript'>$('#container').masonry({itemSelector: '.item',columnWidth: 10,isAnimated: true});</script>");
     //動態綁masonry的方法 插入script 在事件發身之後
-}
+
+};
 $("#logo2").live("click",function(){
         document.location.href="/";
     });

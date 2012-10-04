@@ -109,6 +109,13 @@ class WelcomeController < ApplicationController
     end
     render json:  @data
   end
+
+  def photodetail
+    @picture = Picture.find(params[:id])
+  end
+
+
+
 private
   def load_facebook
     rest_graph_setup(:write_session => true)

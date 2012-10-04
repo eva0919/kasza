@@ -1,0 +1,45 @@
+<div class="dpage">
+	<div class="dtitle"></div>
+	<div class="dphoto" nb='<%=@picture.id%>'><img src='<%=@picture.image.url(:thumb)%>' alt='Icon'  width='520px' height='390px'/></div>
+	<div class="photoedit"><p>編輯</p></div>
+	<div class="photosearch"><p>尋找同好</p></div>
+	<div class="photoblackbottom"></div>
+	<div class="dcontent"><%= @picture.content %></div>
+
+	<script src="/assets/jquery-1.7.1.min.js?body=1" type="text/javascript"></script>
+	<script type='text/javascript'>
+	$(document).ready(function(){
+	var nb = $('.dphoto').attr('nb');
+	console.log(nb)
+	$('.command').load("/command_page/"+nb);
+	var command = "<span>留言：</span><input type='text' name='fb_id' id='command_input' size=80>";
+        $('.command_post').append(command);
+
+        $("input[type=text]").keydown(function(event){
+          if(event.keyCode == 13){
+            var content = $(this).val();
+            var id = $(".fb_login").attr("em");
+            var name = $(".fb_login span").text();
+            var picture_id = nb;
+            //ajax post to /command_post 參數有picture_id fb_id fb_name content
+            //去建立資料庫
+            $.ajax({
+                      url: "/command_post",
+                      type: "POST",
+                      data:{ picture_id: picture_id , fb_id: id , fb_name: name , content: content},
+                      success: function(data) {
+                        //即時更新留言資訊
+                        //load 網址 get /command_page/:id
+                        var page = "/command_page/"+picture_id;
+                        $('.command').load(page);
+                        $(this).val("");
+                      },
+                      error: function() {
+                        
+                      }
+                    });//end ajax
+          }
+        });
+    });
+	</script>
+</div>
