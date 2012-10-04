@@ -14,6 +14,7 @@ Picstory::Application.routes.draw do
   post '/command_post' => 'commands#command_post'
   get '/command_post' => 'commands#command_post'
   get '/command_page/:id' => 'commands#command_page'
+  get '/welcome/photodetail/:id' => 'welcome#photodetail'
   match ':controller(/:action(/:id))(.:format)'
   root :to => 'welcome#index'
 

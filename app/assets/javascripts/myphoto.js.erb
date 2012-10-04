@@ -1,11 +1,13 @@
-$(document).ready(function(){
+
 	$('.item').live('click',function(){
+       
+       
         showdetail($(this));
     });//我的相簿 點選的事件
  $('.blackmosk').live('click',function(){
     $('.blackmosk').remove();
     $('.displayphoto').remove();
-    //$('body').css('overflow-y','auto');
+    
  });//黑幕 點選會發生的事件
  $('.photoedit').live('click',function(){
     var nb = $('.dphoto').attr('nb');
@@ -39,97 +41,84 @@ $(document).ready(function(){
     post_to_url('/welcome/search',nb);
  });
 
-});
+
 
 function callback() {
 			
 		};
 
 //點擊照片show出照片的detail的function
-function showdetail(choose){
-    var t = choose.children('.itemtitle').text();
-    var p = choose.children('.photoset').children('img').attr('src');
-    var c = choose.children('.itemcontent').text();
-    var nb = choose.children('.photoset').attr('nb');
-    var options = {};
-    var arrowright_f = "showdetailchangetoright("+choose+")";
+
+function showdetail(choose){  
+        var nb=choose.children('.photoset').attr('nb');
+       
+        $('body').append('<div class="blackmosk"></div>');
+        $('body').append('<div class="displayphoto"></div>');
+        $('.displayphoto').append('<div id="displayphoto"></div>');
+        $('#displayphoto').load('/welcome/photodetail/'+nb+" .dpage");
+        $('.displayphoto').append('<div class="arrowleft"><img src="/assets/displayarrowleft.png" /></div>');
+        $('.displayphoto').append('<div class="arrowright"><img src="/assets/displayarrowright.png" /></div>');
+        $('.displayphoto').append('<div class="command"></div>');
+        $('.displayphoto').append('<div class="command_post"></div>');
+        //展示個別照片時 左右鍵頭的功能
+        
 
 
-    var cc =c+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>"+"<p>"+c+"</p>";
-    var img ="<img src='"+p+"' alt='Icon'  width='520px' height='390px'/>"
-    $('body').append('<div class="blackmosk"></div>');
-    $('body').append('<div class="displayphoto"></div>');
-    $('.displayphoto').append('<div class="dpage"></div>')
-    $('.dpage').append('<div class="dtitle"></div>');
-    $('.dpage').append('<div class="dphoto"></div>');
-    $('.dpage').append('<div class="photoedit"><p>編輯</p></div>');
-    $('.dpage').append('<div class="photosearch"><p>尋找同好</p></div>');
-    $('.dpage').append('<div class="photoblackbottom"></div>');
-    $('.dpage').append('<div class="dcontent"></div>');
-    $('.dpage').append('<div class="command"></div>');
-    $('.dpage').append('<div class="command_post"></div>');
-    $('.dtitle').text(t);
-    $('.dphoto').html(img);
-    $('.dphoto').attr('nb',nb);
-    $('.displayphoto').append('<div class="arrowleft"><img src="/assets/displayarrowleft.png" /></div>');
-    $('.displayphoto').append('<div class="arrowright"><img src="/assets/displayarrowright.png" /></div>');
-    $('.dcontent').html(c);
-    $('.command').load("/command_page/"+nb);
-    //展示個別照片時 左右鍵頭的功能
 
-    $('.arrowright').click(function(){
-        if(choose.next('.item').length>0){
-        $('.blackmosk').trigger('click');
-        showdetail(choose.next());
-        }
-        else
-        {
-            alert("這是最後一張照片");
-        }
-    });
-    $('.arrowleft').click(function(){
-        if(choose.prev('.item').length>0){
-        $('.blackmosk').trigger('click');
-        showdetail(choose.prev());
-        }
-        else
-        {
-            alert("這是第一張照片");
-        }
-    });
-    //留言功能
-    var command = "<span>留言：</span><input type='text' name='fb_id' id='command_input' size=80>";
-    $('.command_post').append(command);
+        $('.arrowright').click(function(){
+            if(choose.next('.item').length>0){
+            $('.blackmosk').trigger('click');
+            showdetail(choose.next());
+            }
+            else
+            {
+                alert("這是最後一張照片");
+            }
+        });
+        $('.arrowleft').click(function(){
+            if(choose.prev('.item').length>0){
+            $('.blackmosk').trigger('click');
+            showdetail(choose.prev());
+            }
+            else
+            {
+                alert("這是第一張照片");
+            }
+        });
+        //
+        $('.command').load("/command_page/"+nb+" #command_page");
+        var command = "<span>留言：</span><input type='text' name='fb_id' id='command_input' size=80>";
+        $('.command_post').append(command);
 
-    $("input[type=text]").keydown(function(event){
-      if(event.keyCode == 13){
-        var content = $(this).val();
-        var id = $(".fb_login").attr("em");
-        var name = $(".fb_login span").text();
-        var picture_id = nb;
-        //ajax post to /command_post 參數有picture_id fb_id fb_name content
-        //去建立資料庫
-        $.ajax({
-                  url: "/command_post",
-                  type: "POST",
-                  data:{ picture_id: picture_id , fb_id: id , fb_name: name , content: content},
-                  success: function(data) {
-                    //即時更新留言資訊
-                    //load 網址 get /command_page/:id
-                    var page = "/command_page/"+picture_id;
-                    $('.command').load(page);
-                    $(this).val("");
-                  },
-                  error: function() {
-                    
-                  }
-                });//end ajax
-      }
-    });
-
-    //$('body').css('overflow-y','hidden');
-    $('.displayphoto').hide();
-    $('.displayphoto').fadeIn('slow');
+        $("input[type=text]").keydown(function(event){
+          if(event.keyCode == 13){
+            var content = $(this).val();
+            var id = $(".fb_login").attr("em");
+            var name = $(".fb_login span").text();
+            var picture_id = nb;
+            //ajax post to /command_post 參數有picture_id fb_id fb_name content
+            //去建立資料庫
+            $.ajax({
+                      url: "/command_post",
+                      type: "POST",
+                      data:{ picture_id: picture_id , fb_id: id , fb_name: name , content: content},
+                      success: function(data) {
+                        //即時更新留言資訊
+                        //load 網址 get /command_page/:id
+                        var page = "/command_page/"+picture_id+" #command_page";
+                        $('.command').load(page);
+                        $(this).val("");
+                      },
+                      error: function() {
+                        
+                      }
+                    });//end ajax
+          }
+        });
+        //$('body').css('overflow-y','hidden');
+        $('.displayphoto').hide();
+        $('.displayphoto').fadeIn('slow');
+    
 }//end function showdetail
 //用js 做出post form to url
 function post_to_url(path, data, method) {
@@ -152,7 +141,7 @@ function post_to_url(path, data, method) {
 
     document.body.appendChild(form);    // Not entirely sure if this is necessary
     form.submit();
-}
+};
 
 
 
