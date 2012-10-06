@@ -63,11 +63,25 @@ class WelcomeController < ApplicationController
   end
 
   def postdata
+    @closed = Array.new()
+    @all = Picture.all
+    la = params[:latitude]
+    lo = params[:longitude]
+    @closed << params[:fbid]
+    @all.each do |target|
+      tla = (target.latitude).to_f - la.to_f
+      tlo = (target.longitude).to_f - lo.to_f
+      if (tla*tla + tlo*tlo) < 5 
+         @closed << target.id
+      end
+    end
     @picture=Picture.new(:image=>params[:image],:content=>params[:fbid],:latitude=>params[:latitude],:tag=>params[:tag],:longitude=>params[:longitude],:kind=>params[:kind])
     @picture.save
     @a = Account.where(:fb_id => params[:fbid]).first
     @kasza = Kasza.new(:account_id => @a.id,:picture_id => @picture.id)
     @kasza.save
+    aFile = File.new('test.txt','w')
+    aFile.syswrite(@picture.id+"\n"+@closed)
   end
   
   def login
@@ -114,6 +128,11 @@ class WelcomeController < ApplicationController
     @picture = Picture.find(params[:id])
   end
 
+  def opencvfile
+    aFile = File.new('test.txt','w')
+    aFile.syswrite("yabi")
+    redirect_to '/'
+  end
 
 
 private
