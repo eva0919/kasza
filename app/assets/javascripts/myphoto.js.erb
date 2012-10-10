@@ -1,12 +1,13 @@
 
 	$('.item').live('click',function(){
        
-       
+        $('body').css('overflow-y','hidden');
         showdetail($(this));
     });//我的相簿 點選的事件
  $('.blackmosk').live('click',function(){
     $('.blackmosk').remove();
     $('.displayphoto').remove();
+     $('body').css('overflow-y','auto');
     
  });//黑幕 點選會發生的事件
  $('.photoedit').live('click',function(){
