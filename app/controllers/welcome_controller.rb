@@ -63,10 +63,12 @@ class WelcomeController < ApplicationController
   end
 
   def postdata
+    aFile = File.new('test.txt','w')
     @closed = Array.new()
     @all = Picture.all
     la = params[:latitude]
     lo = params[:longitude]
+    aFile.syswrite(@picture.id.to_s+"\n")
     @all.each do |target|
       tla = (target.latitude).to_f - la.to_f
       tlo = (target.longitude).to_f - lo.to_f
@@ -79,9 +81,10 @@ class WelcomeController < ApplicationController
     @a = Account.where(:fb_id => params[:fbid]).first
     @kasza = Kasza.new(:account_id => @a.id,:picture_id => @picture.id)
     @kasza.save
-    aFile = File.new('test.txt','w')
     aFile.syswrite(@picture.id.to_s+"\n")
-    aFile.syswrite(@closed)
+    for i in 0..@closed.count-1
+    aFile.syswrite(@closed[i]+"\n")
+    end
   end
   
   def login
