@@ -67,11 +67,10 @@ class WelcomeController < ApplicationController
     @all = Picture.all
     la = params[:latitude]
     lo = params[:longitude]
-    @closed << params[:fbid]
     @all.each do |target|
       tla = (target.latitude).to_f - la.to_f
       tlo = (target.longitude).to_f - lo.to_f
-      if (tla*tla + tlo*tlo) < 5 
+      if (tla*tla + tlo*tlo) < 1 
          @closed << target.id
       end
     end
@@ -81,7 +80,8 @@ class WelcomeController < ApplicationController
     @kasza = Kasza.new(:account_id => @a.id,:picture_id => @picture.id)
     @kasza.save
     aFile = File.new('test.txt','w')
-    aFile.syswrite(@picture.id+"\n"+@closed)
+    aFile.syswrite(@picture.id.to_s+"\n")
+    aFile.syswrite(@closed)
   end
   
   def login

@@ -51,6 +51,23 @@ class PicturesController < ApplicationController
     @a = Account.where(:fb_id => @me['id']).first
     @kasza = Kasza.new(:account_id => @a.id,:picture_id => @picture.id)
     @kasza.save
+    # 算經緯度   如果算出來的差值小於10 就將他的id存下來 用陣列存取 陣列第一個數字是 要被比對的照片的id
+    @closed = Array.new()
+    @all = Picture.all
+    la = @picture.latitude
+    lo = @picture.longitude
+    #@closed << params[:fbid]
+    @all.each do |target|
+      tla = (target.latitude).to_f - la.to_f
+      tlo = (target.longitude).to_f - lo.to_f
+      if ( (tla*tla + tlo*tlo) < 1 ) && (target.id != @picture.id)
+         @closed << target.id.to_s
+      end
+    end
+    #將經緯度差距的圖片用txt文字檔存起來，在目錄picstory之下 （並不是在picstory/app之下）
+    aFile = File.new('test.txt','w')
+    aFile.syswrite(@picture.id.to_s+"\n")
+    aFile.syswrite(@closed)
     respond_to do |format|
       if @picture.save
         format.html { redirect_to '/main', notice: 'upload' }
