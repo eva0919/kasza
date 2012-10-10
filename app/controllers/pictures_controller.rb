@@ -41,6 +41,7 @@ class PicturesController < ApplicationController
     @picture = Picture.find(params[:id])
   end
 
+
   # POST /pictures
   # POST /pictures.json
   def create
@@ -127,7 +128,10 @@ class PicturesController < ApplicationController
       render json: @data
   end
 
-  
+  #pictures/matchtag
+  def matchtag
+  end
+
 
 
 ################################################

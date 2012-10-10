@@ -15,6 +15,8 @@ Picstory::Application.routes.draw do
   get '/command_post' => 'commands#command_post'
   get '/command_page/:id' => 'commands#command_page'
   get '/welcome/photodetail/:id' => 'welcome#photodetail'
+  post '/pictures/matchtag' => 'pictures#matchtag'
+  get '/pictures/matchtag' => 'pictures#matchtag'
   get 'welcome/opencvfile'=>'welcome#opencvfile'
   match ':controller(/:action(/:id))(.:format)'
   root :to => 'welcome#index'

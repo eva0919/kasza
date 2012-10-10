@@ -68,7 +68,6 @@ class WelcomeController < ApplicationController
     @all = Picture.all
     la = params[:latitude]
     lo = params[:longitude]
-    aFile.syswrite(@picture.id.to_s+"\n")
     @all.each do |target|
       tla = (target.latitude).to_f - la.to_f
       tlo = (target.longitude).to_f - lo.to_f
