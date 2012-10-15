@@ -130,6 +130,17 @@ class PicturesController < ApplicationController
 
   #pictures/matchtag
   def matchtag
+    #@target = Picture.find(params[:tag])
+    #@query = Picture.find(params[:query])
+    #@target.update_attributes(:tag=>@query.tag)
+    @a = params[:tag].to_s
+    puts 'params:'
+    puts @a
+    aFile = File.new('POST.txt','w')
+    aFile.syswrite("POST SUCCESS\n")
+    aFile.syswrite(@a+"\n")
+    aFile.syswrite(params['query'].to_s)
+    aFile.syswrite("where is tag?\n")
   end
 
 
