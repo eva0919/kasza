@@ -63,7 +63,7 @@ class WelcomeController < ApplicationController
   end
 
   def postdata
-    aFile = File.new('test.txt','w')
+    aFile = File.new('./app/assets/images/KaSza/train.txt','w')
     @closed = Array.new()
     @all = Picture.all
     la = params[:latitude]
@@ -82,8 +82,9 @@ class WelcomeController < ApplicationController
     @kasza.save
     aFile.syswrite(@picture.id.to_s+"\n")
     for i in 0..@closed.count-1
-    aFile.syswrite(@closed[i]+"\n")
+    aFile.syswrite(@closed[i].to_s+"\n")
     end
+    aFile.close
   end
   
   def login

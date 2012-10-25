@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'net/http'
 class PicturesController < ApplicationController
   include RestGraph::RailsUtil
@@ -133,14 +134,22 @@ class PicturesController < ApplicationController
     #@target = Picture.find(params[:tag])
     #@query = Picture.find(params[:query])
     #@target.update_attributes(:tag=>@query.tag)
-    @a = params[:tag].to_s
-    puts 'params:'
-    puts @a
-    aFile = File.new('POST.txt','w')
-    aFile.syswrite("POST SUCCESS\n")
-    aFile.syswrite(@a+"\n")
-    aFile.syswrite(params['query'].to_s)
-    aFile.syswrite("where is tag?\n")
+    data = Array.new()
+    i = 0;
+    f = File.open('./app/assets/images/KaSza/result.txt', "r") 
+    f.each_line do |line|
+      data[i] = line
+      i = i+1
+    end
+    @target = Picture.find(data[0].to_i)
+    @query = Picture.find(data[1].to_i)
+    if @query.tag
+      @target.update_attributes(:tag=>@query.tag)
+    else
+      @query.update_attributes(:tag=>@query.id.to_s)
+      @target.update_attributes(:tag=>@query.tag)
+    end
+   
   end
 
 
